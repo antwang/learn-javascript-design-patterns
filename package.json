@@ -1,0 +1,30 @@
+{
+  "name": "learn-javascript-design-patterns",
+  "version": "1.0.0",
+  "description": "什么是中介者模式。简单来说就是中介。",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "koa": "^2.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antwang/learn-javascript-design-patterns.git"
+  },
+  "keywords": [
+    "koa",
+    "js"
+  ],
+  "author": "antwang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antwang/learn-javascript-design-patterns/issues"
+  },
+  "homepage": "https://github.com/antwang/learn-javascript-design-patterns#readme"
+}
