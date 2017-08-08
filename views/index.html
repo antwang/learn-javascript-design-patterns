@@ -1,78 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>koa home page</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            .formItem{
-                line-height: 3;
-            }
-            .outputArea{
-                line-height: 3;
-                border-top: 1px solid #ccc;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="inputArea">
-            <div class="formItem">
-                <label for="">选择车型：</label>
-                <select name="carType" id="carType">
+
+<head>
+    <title>koa home page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .formItem {
+            line-height: 3;
+        }
+
+        .outputArea {
+            line-height: 3;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="inputArea">
+        <div class="formItem">
+            <label for="">选择车型：</label>
+            <select name="carType" id="carType">
                     <option value="0">选车型</option>
                     <option value="1">小面</option>
                     <option value="2">金杯</option>
                     <option value="3">箱货</option>
                 </select>
-            </div>
-            <div class="formItem">
-                <label for="">用车数量：</label>
-                <input type="number" name="num" id="num" value="">
-            </div>
-            <button id='submit' disabled>下一步</button>
         </div>
-        <div id="cost" class="outputArea" disabled>您需要支付：0元</div>
-        <script>
-            var carType = document.querySelector('#carType');
-            var num = document.querySelector('#num');
-            var cost = document.querySelector('#cost');
-            var submit = document.querySelector('#submit');
-            
-            var mediator = (function(){
-                var price = [0, 50, 80, 100]
-                function change() {
-                    var typeValue = Number(carType.options[carType.selectedIndex].value);
-                    var numValue = Number(num.value);
-                    if(!typeValue) {
-                        submit.innerHTML = '请选择车型'
-                        cost.innerHTML = '您需要支付：0元'
-                        submit.setAttribute('disabled','disabled')
-                        return
-                    }
-                    if(!numValue) {
-                        submit.innerHTML = '请填写用车数'
-                        cost.innerHTML = '您需要支付：0元'
-                        submit.setAttribute('disabled','disabled')
-                        return 
-                    }
-                    cost.innerHTML = '您需要支付' + price[typeValue] * numValue + '元'
-                    submit.innerHTML = '下一步'
-                    submit.removeAttribute('disabled')
-                }
-                return {
-                    change: change
-                }
-            })();
+        <div class="formItem">
+            <label for="">用车数量：</label>
+            <input type="number" name="num" id="num" value="">
+        </div>
+        <button id='submit' disabled>下一步</button>
+    </div>
+    <div id="cost" class="outputArea" disabled>您需要支付：0元</div>
+    <script>
+        var carType = document.querySelector('#carType');
+        var num = document.querySelector('#num');
+        var cost = document.querySelector('#cost');
+        var submit = document.querySelector('#submit');
 
-            function onChangeNum(){
-                mediator.change()
+        var mediator = (function () {
+            var price = [0, 50, 80, 100]
+            function change() {
+                var typeValue = Number(carType.options[carType.selectedIndex].value);
+                var numValue = Number(num.value);
+                if (!typeValue) {
+                    submit.innerHTML = '请选择车型'
+                    cost.innerHTML = '您需要支付：0元'
+                    submit.setAttribute('disabled', 'disabled')
+                    return
+                }
+                if (!numValue) {
+                    submit.innerHTML = '请填写用车数'
+                    cost.innerHTML = '您需要支付：0元'
+                    submit.setAttribute('disabled', 'disabled')
+                    return
+                }
+                cost.innerHTML = '您需要支付' + price[typeValue] * numValue + '元'
+                submit.innerHTML = '下一步'
+                submit.removeAttribute('disabled')
             }
-            function onChangeType(){
-                mediator.change()
+            return {
+                change: change
+            }
+        })();
+
+        function onChangeNum() {
+            mediator.change()
+        }
+        function onChangeType() {
+            mediator.change()
+        }
+
+        carType.addEventListener('change', onChangeType, false);
+        num.addEventListener('input', onChangeNum, false);
+
+
+
+
+
+
+
+
+        var username = document.getElementById('username'),
+            password = document.getElementById('password'),
+            submitBtn = document.getElementById('submitBtn');
+        Function.prototype.before = function (beforeFn) {
+            var _self = this;
+            return function () {
+                if (beforeFn.apply(this, arguments)) {
+                    _self.apply(this, arguments)
+                }
             }
 
-            carType.addEventListener('change', onChangeType, false);
-            num.addEventListener('input', onChangeNum, false);
-        </script>
-    </body>
+        }
+        var formSubmit = function () {
+            var param = {
+                username: username.value,
+                password: password.value
+            }
+            ajax('http:// xxx.com/login', param); // ajax 具体实现略
+        }
+        var validator = function () {
+            if (username.value === '') {
+                alert('用户名不能为空');
+                return false;
+            }
+            if (password.value === '') {
+                alert('密码不能为空');
+                return false;
+            }
+            return true
+        }
+        formSubmit = formSubmit.before(validator)
+        submitBtn.onclick = function () {
+            formSubmit();
+        }
+    </script>
+</body>
+
 </html>
